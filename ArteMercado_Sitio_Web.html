@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ArteMercado — Plataforma digital inclusiva que conecta artesanos y pequeños productores de comunidades vulnerables de Puebla con mercados nacionales e internacionales." />
+  <title>ArteMercado | Diseñar para Compartir</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── CSS Variables ─── */
+    :root {
+      --terra:   #C0502A;
+      --terra-dark: #8B3318;
+      --terra-light: #E07A55;
+      --cream:   #FAF4EC;
+      --sand:    #EDE0CC;
+      --bark:    #3D2B1F;
+      --ink:     #1E1510;
+      --mist:    #F5EDE0;
+      --gold:    #C9963A;
+      --leaf:    #4A7C59;
+      --leaf-light: #6BA882;
+      --white:   #FFFFFF;
+      --focus-ring: 3px solid #C9963A;
+      --radius: 2px;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Source Serif 4', Georgia, serif;
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 17px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    ul { list-style: none; }
+
+    /* ─── POUR: Perceptible — Skip Link ─── */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 1rem;
+      background: var(--terra);
+      color: var(--white);
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      border-radius: 0 0 4px 4px;
+      z-index: 9999;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ─── POUR: Operable — Focus styles ─── */
+    :focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ─── Nav ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--terra-light); }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--sand);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible {
+      color: var(--cream);
+      background: rgba(255,255,255,0.08);
+    }
+    .nav-cta {
+      background: var(--terra) !important;
+      color: var(--white) !important;
+      padding: 0.45rem 1.1rem !important;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--terra-light) !important; }
+
+    /* ─── Mobile nav toggle ─── */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      color: var(--cream);
+    }
+    .nav-toggle svg { width: 26px; height: 26px; fill: currentColor; }
+
+    /* ─── Hero ─── */
+    .hero {
+      min-height: 91vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 5rem;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terra);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: var(--terra);
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      line-height: 1.12;
+      color: var(--bark);
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--terra);
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: #5A3E30;
+      max-width: 440px;
+      margin-bottom: 2.2rem;
+      line-height: 1.8;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--terra);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary:hover { background: var(--terra-dark); transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--bark);
+      padding: 0.85rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid var(--bark);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-secondary:hover { background: var(--bark); color: var(--cream); }
+
+    /* Hero visual side */
+    .hero-visual {
+      position: relative;
+      background: var(--bark);
+      overflow: hidden;
+    }
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.18;
+      background-image:
+        repeating-linear-gradient(45deg, var(--terra-light) 0, var(--terra-light) 1px, transparent 0, transparent 50%),
+        repeating-linear-gradient(-45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
+      background-size: 28px 28px;
+    }
+    .hero-craft-card {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--cream);
+      padding: 1.2rem 1.6rem;
+      width: 280px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      border-left: 4px solid var(--terra);
+    }
+    .hero-craft-card p {
+      font-size: 0.82rem;
+      color: var(--bark);
+      font-style: italic;
+      margin-bottom: 0.4rem;
+    }
+    .hero-craft-card strong {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--terra);
+    }
+    .hero-svg-art {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      width: 320px;
+      opacity: 0.9;
+    }
+    .hero-stat-strip {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .stat-badge {
+      background: rgba(250,244,236,0.1);
+      border: 1px solid rgba(250,244,236,0.2);
+      padding: 0.6rem 1rem;
+      text-align: right;
+    }
+    .stat-badge .num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--cream);
+      display: block;
+      line-height: 1;
+    }
+    .stat-badge .label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sand);
+    }
+
+    /* ─── Section base ─── */
+    section { padding: 5.5rem 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--terra);
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--terra);
+      opacity: 0.35;
+      max-width: 60px;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--bark);
+      line-height: 1.18;
+      margin-bottom: 1.1rem;
+    }
+    .lead {
+      font-size: 1.05rem;
+      color: #5A3E30;
+      line-height: 1.8;
+      max-width: 580px;
+    }
+
+    /* ─── Promise section ─── */
+    .promise { background: var(--bark); }
+    .promise .section-label { color: var(--terra-light); }
+    .promise .section-label::after { background: var(--terra-light); }
+    .promise h2 { color: var(--cream); }
+    .promise .lead { color: var(--sand); }
+    .promise-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 3.5rem;
+    }
+    .promise-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .promise-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-left: 3px solid var(--terra-light);
+      padding: 1.3rem 1.5rem;
+      transition: background 0.2s;
+    }
+    .promise-card:hover { background: rgba(255,255,255,0.08); }
+    .promise-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .promise-card p {
+      font-size: 0.9rem;
+      color: var(--sand);
+      line-height: 1.65;
+    }
+    .promise-quote {
+      border-left: 3px solid var(--terra);
+      padding-left: 2rem;
+    }
+    .promise-quote blockquote {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    .promise-quote cite {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--terra-light);
+      font-style: normal;
+    }
+
+    /* ─── How it works ─── */
+    .how { background: var(--mist); }
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .step {
+      position: relative;
+      padding: 2rem 1.8rem 2rem;
+      background: var(--white);
+      border-top: 3px solid var(--terra);
+      box-shadow: 0 2px 16px rgba(61,43,31,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .step:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(61,43,31,0.12); }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      color: var(--sand);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+    }
+    .step h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--bark);
+      margin-bottom: 0.6rem;
+    }
+    .step p { font-size: 0.9rem; color: #5A3E30; line-height: 1.7; }
+    .step-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--terra);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .step-icon svg { width: 22px; height: 22px; fill: none; stroke: var(--white); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ─── Target group ─── */
+    .target { background: var(--cream); }
+    .target-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .profile-card {
+      background: var(--white);
+      border: 1px solid var(--sand);
+      padding: 2rem;
+      box-shadow: 0 2px 12px rgba(61,43,31,0.06);
+    }
+    .profile-card + .profile-card { border-top: 3px solid var(--leaf); }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--sand);
+    }
+    .profile-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .profile-avatar svg { width: 28px; height: 28px; }
+    .profile-name { font-family: var(--font-display); font-size: 1rem; color: var(--bark); }
+    .profile-role { font-size: 0.78rem; color: var(--terra); text-transform: uppercase; letter-spacing: 0.08em; }
+    .profile-card p { font-size: 0.9rem; color: #5A3E30; line-height: 1.7; }
+    .target-problem {
+      background: var(--bark);
+      padding: 2.5rem;
+      color: var(--cream);
+    }
+    .target-problem h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--cream);
+    }
+    .target-problem p { font-size: 0.92rem; color: var(--sand); line-height: 1.75; margin-bottom: 1rem; }
+    .target-problem p:last-child { margin-bottom: 0; }
+    .highlight-inline {
+      background: var(--terra);
+      color: var(--white);
+      padding: 0.1em 0.35em;
+      font-style: normal;
+    }
+
+    /* ─── Revenue model ─── */
+    .revenue { background: var(--sand); }
+    .revenue-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .rev-card {
+      background: var(--white);
+      padding: 2rem;
+      border-bottom: 3px solid var(--terra);
+      position: relative;
+      overflow: hidden;
+    }
+    .rev-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 60px; height: 60px;
+      background: var(--mist);
+      border-radius: 0 0 0 60px;
+    }
+    .rev-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--terra);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .rev-card h3 { font-family: var(--font-display); font-size: 1.1rem; color: var(--bark); margin-bottom: 0.6rem; }
+    .rev-card p { font-size: 0.88rem; color: #5A3E30; line-height: 1.7; }
+    .rev-tag {
+      display: inline-block;
+      background: var(--mist);
+      color: var(--terra-dark);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2em 0.7em;
+      margin-bottom: 0.7rem;
+      border: 1px solid var(--sand);
+    }
+
+    /* ─── Scalability ─── */
+    .scale { background: var(--cream); }
+    .scale-timeline {
+      position: relative;
+      margin-top: 3rem;
+      padding-left: 2rem;
+    }
+    .scale-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--terra), var(--gold), var(--leaf));
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -2rem;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--white);
+      box-shadow: 0 0 0 2px var(--terra);
+      background: var(--terra);
+      transform: translateX(-7px);
+    }
+    .timeline-item:nth-child(2) .timeline-dot { background: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+    .timeline-item:nth-child(3) .timeline-dot { background: var(--leaf); box-shadow: 0 0 0 2px var(--leaf); }
+    .timeline-phase {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--terra);
+      margin-bottom: 0.3rem;
+    }
+    .timeline-item:nth-child(2) .timeline-phase { color: var(--gold); }
+    .timeline-item:nth-child(3) .timeline-phase { color: var(--leaf); }
+    .timeline-item h3 { font-family: var(--font-display); font-size: 1.15rem; color: var(--bark); margin-bottom: 0.5rem; }
+    .timeline-item p { font-size: 0.9rem; color: #5A3E30; max-width: 600px; line-height: 1.7; }
+
+    /* ─── POUR Accessibility Section ─── */
+    .pour { background: var(--bark); }
+    .pour h2 { color: var(--cream); }
+    .pour .section-label { color: var(--terra-light); }
+    .pour .section-label::after { background: var(--terra-light); }
+    .pour .lead { color: var(--sand); }
+    .pour-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .pour-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .pour-card:hover { background: rgba(255,255,255,0.09); }
+    .pour-letter {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--terra-light);
+      display: block;
+      margin-bottom: 0.3rem;
+      font-style: italic;
+    }
+    .pour-card h3 { font-family: var(--font-display); color: var(--cream); font-size: 1rem; margin-bottom: 0.7rem; }
+    .pour-card ul { list-style: none; padding: 0; }
+    .pour-card ul li {
+      font-size: 0.82rem;
+      color: var(--sand);
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      line-height: 1.5;
+    }
+    .pour-card ul li:last-child { border-bottom: none; }
+
+    /* ─── CTA ─── */
+    .cta {
+      background: var(--terra);
+      padding: 5rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 40px);
+    }
+    .cta-inner { position: relative; }
+    .cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .cta p { color: rgba(255,255,255,0.85); max-width: 520px; margin: 0 auto 2.2rem; font-size: 1rem; }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      background: var(--white);
+      color: var(--terra-dark);
+      padding: 0.85rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-white:hover { background: var(--cream); }
+    .btn-outline-white {
+      background: transparent;
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.7);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-outline-white:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+    /* ─── Contact form ─── */
+    .contact { background: var(--mist); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; margin-top: 3rem; align-items: start; }
+    .contact-info h3 { font-family: var(--font-display); font-size: 1.2rem; color: var(--bark); margin-bottom: 1rem; }
+    .contact-info p { font-size: 0.9rem; color: #5A3E30; margin-bottom: 1.5rem; line-height: 1.7; }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      margin-bottom: 0.9rem;
+      font-size: 0.9rem;
+      color: #5A3E30;
+    }
+    .contact-detail svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--terra); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-top: 2px; }
+
+    /* POUR: Comprensible — Form with labels */
+    form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--bark);
+    }
+    label .required {
+      color: var(--terra);
+      margin-left: 2px;
+    }
+    input, select, textarea {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--sand);
+      background: var(--white);
+      color: var(--ink);
+      width: 100%;
+      transition: border-color 0.2s;
+      border-radius: 0;
+      appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--terra);
+      outline: var(--focus-ring);
+      outline-offset: 2px;
+    }
+    input::placeholder, textarea::placeholder { color: #A08070; }
+    textarea { resize: vertical; min-height: 120px; }
+    .form-hint { font-size: 0.78rem; color: #8B6555; }
+    .btn-submit {
+      background: var(--terra);
+      color: var(--white);
+      padding: 0.9rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover { background: var(--terra-dark); }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--ink);
+      color: var(--sand);
+      padding: 3.5rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand .logo {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+    }
+    .footer-brand .logo span { color: var(--terra-light); }
+    .footer-brand p { font-size: 0.85rem; line-height: 1.7; color: #8B7060; max-width: 280px; }
+    .footer-col h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--terra-light);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col ul a {
+      font-size: 0.85rem;
+      color: #8B7060;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--cream); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: #5A4A40;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-bottom a { color: #5A4A40; text-decoration: none; }
+    .footer-bottom a:hover { color: var(--terra-light); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-text { padding: 4rem 2rem 3rem; }
+      .hero-visual { height: 320px; }
+      .promise-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .how-steps { grid-template-columns: 1fr; }
+      .target-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .revenue-cards { grid-template-columns: 1fr; }
+      .pour-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--bark); padding: 1rem 1.5rem 1.5rem; gap: 0.5rem; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 0.6rem 0.8rem; }
+      .nav-toggle { display: flex; }
+    }
+    @media (max-width: 560px) {
+      .pour-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2rem; }
+      .hero-actions { flex-direction: column; }
+    }
+
+    /* ─── Animations ─── */
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-text > * { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+      .hero-eyebrow { animation-delay: 0.1s; }
+      .hero h1 { animation-delay: 0.25s; }
+      .hero-desc { animation-delay: 0.4s; }
+      .hero-actions { animation-delay: 0.55s; }
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    /* ─── Talavera SVG decoration ─── */
+    .talavera-divider { text-align: center; padding: 0.5rem 0; overflow: hidden; }
+    .talavera-divider svg { height: 20px; width: 100%; }
+  </style>
+</head>
+<body>
+
+  <!-- POUR: Operable — Skip navigation link -->
+  <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
+
+  <!-- POUR: Robusto — Semantic nav with ARIA -->
+  <nav role="navigation" aria-label="Navegación principal">
+    <a href="#inicio" class="nav-logo" aria-label="ArteMercado — Página de inicio">Arte<span>Mercado</span></a>
+    <button class="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Abrir menú de navegación">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links" id="nav-menu" role="list">
+      <li><a href="#modelo">Modelo</a></li>
+      <li><a href="#como-funciona">Cómo funciona</a></li>
+      <li><a href="#comunidad">Comunidad</a></li>
+      <li><a href="#escalabilidad">Escalabilidad</a></li>
+      <li><a href="#accesibilidad">Accesibilidad POUR</a></li>
+      <li><a href="#contacto" class="nav-cta">Únete</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <main id="contenido-principal">
+    <section id="inicio" class="hero" aria-labelledby="hero-title">
+      <div class="hero-text">
+        <p class="hero-eyebrow" aria-hidden="true">Modelo de negocio inclusivo</p>
+        <h1 id="hero-title">
+          Tu oficio merece<br>
+          llegar al <em>mundo entero</em>
+        </h1>
+        <p class="hero-desc">
+          ArteMercado conecta directamente a artesanos y pequeños productores de comunidades vulnerables de Puebla con mercados nacionales e internacionales — sin intermediarios, sin condiciones injustas.
+        </p>
+        <div class="hero-actions">
+          <a href="#contacto" class="btn-primary">
+            Únete como artesano
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#modelo" class="btn-secondary">Conocer el modelo</a>
+        </div>
+      </div>
+      <div class="hero-visual" role="img" aria-label="Diseño decorativo con patrones inspirados en artesanías poblanas">
+        <div class="hero-pattern" aria-hidden="true"></div>
+        <!-- Talavera-inspired decorative SVG -->
+        <svg class="hero-svg-art" viewBox="0 0 300 300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="150" cy="150" r="130" fill="none" stroke="rgba(250,244,236,0.12)" stroke-width="1"/>
+          <circle cx="150" cy="150" r="100" fill="none" stroke="rgba(192,80,42,0.35)" stroke-width="1.5"/>
+          <circle cx="150" cy="150" r="70" fill="none" stroke="rgba(250,244,236,0.18)" stroke-width="1"/>
+          <!-- Petal shapes -->
+          <g transform="translate(150,150)">
+            <g><ellipse cx="0" cy="-90" rx="16" ry="38" fill="rgba(192,80,42,0.45)" transform="rotate(0)"/></g>
+            <g><ellipse cx="0" cy="-90" rx="16" ry="38" fill="rgba(192,80,42,0.45)" transform="rotate(45)"/></g>
+            <g><ellipse cx="0" cy="-90" rx="16" ry="38" fill="rgba(192,80,42,0.45)" transform="rotate(90)"/></g>
+            <g><ellipse cx="0" cy="-90" rx="16" ry="38" fill="rgba(192,80,42,0.45)" transform="rotate(135)"/></g>
+            <g><ellipse cx="0" cy="-90" rx="16" ry="38" fill="rgba(192,80,42,0.45)" transform="rotate(180)"/></g>
+            <g><ellipse cx="0" cy="-90" rx="16" ry="38" fill="rgba(192,80,42,0.45)" transform="rotate(225)"/></g>
+            <g><ellipse cx="0" cy="-90" rx="16" ry="38" fill="rgba(192,80,42,0.45)" transform="rotate(270)"/></g>
+            <g><ellipse cx="0" cy="-90" rx="16" ry="38" fill="rgba(192,80,42,0.45)" transform="rotate(315)"/></g>
+            <!-- Inner petals -->
+            <g><ellipse cx="0" cy="-55" rx="10" ry="22" fill="rgba(201,150,58,0.5)" transform="rotate(22.5)"/></g>
+            <g><ellipse cx="0" cy="-55" rx="10" ry="22" fill="rgba(201,150,58,0.5)" transform="rotate(67.5)"/></g>
+            <g><ellipse cx="0" cy="-55" rx="10" ry="22" fill="rgba(201,150,58,0.5)" transform="rotate(112.5)"/></g>
+            <g><ellipse cx="0" cy="-55" rx="10" ry="22" fill="rgba(201,150,58,0.5)" transform="rotate(157.5)"/></g>
+            <g><ellipse cx="0" cy="-55" rx="10" ry="22" fill="rgba(201,150,58,0.5)" transform="rotate(202.5)"/></g>
+            <g><ellipse cx="0" cy="-55" rx="10" ry="22" fill="rgba(201,150,58,0.5)" transform="rotate(247.5)"/></g>
+            <g><ellipse cx="0" cy="-55" rx="10" ry="22" fill="rgba(201,150,58,0.5)" transform="rotate(292.5)"/></g>
+            <g><ellipse cx="0" cy="-55" rx="10" ry="22" fill="rgba(201,150,58,0.5)" transform="rotate(337.5)"/></g>
+            <circle r="22" fill="rgba(250,244,236,0.15)" stroke="rgba(250,244,236,0.3)" stroke-width="1.5"/>
+            <circle r="10" fill="rgba(192,80,42,0.6)"/>
+          </g>
+          <!-- Corner ornaments -->
+          <circle cx="30" cy="30" r="8" fill="none" stroke="rgba(201,150,58,0.4)" stroke-width="1.5"/>
+          <circle cx="270" cy="30" r="8" fill="none" stroke="rgba(201,150,58,0.4)" stroke-width="1.5"/>
+          <circle cx="30" cy="270" r="8" fill="none" stroke="rgba(201,150,58,0.4)" stroke-width="1.5"/>
+          <circle cx="270" cy="270" r="8" fill="none" stroke="rgba(201,150,58,0.4)" stroke-width="1.5"/>
+        </svg>
+        <!-- Stats -->
+        <div class="hero-stat-strip" aria-label="Datos del sector artesanal en México">
+          <div class="stat-badge">
+            <span class="num">8M+</span>
+            <span class="label">Artesanos en México</span>
+          </div>
+          <div class="stat-badge">
+            <span class="num">Puebla</span>
+            <span class="label">Punto de arranque</span>
+          </div>
+        </div>
+        <!-- Testimonial card -->
+        <figure class="hero-craft-card" aria-label="Cita de artesana">
+          <p>"Por primera vez fijé yo el precio de mi Talavera."</p>
+          <figcaption><strong>— Artesana, San Pablo del Monte</strong></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ─── PROMISE ─── -->
+    <section id="modelo" class="promise" aria-labelledby="promise-title">
+      <div class="container">
+        <p class="section-label">Promesa de valor</p>
+        <h2 id="promise-title">No es caridad. Es un modelo<br>que funciona para todos.</h2>
+        <p class="lead">Si tienes un oficio y lo dominas, yo me encargo de que el mundo lo conozca y de que te paguen lo que mereces por él.</p>
+
+        <div class="promise-grid">
+          <div class="promise-cards">
+            <article class="promise-card">
+              <h3>Tienda digital propia</h3>
+              <p>Cada artesano tiene su vitrina virtual con identidad propia: sube fotos, define tu precio y gestiona tus pedidos desde el mismo lugar. Sin tecnicismos, con soporte por WhatsApp.</p>
+            </article>
+            <article class="promise-card">
+              <h3>Ferias virtuales mensuales</h3>
+              <p>Un evento en vivo cada mes donde presentas tu colección en tiempo real, los compradores conocen tu historia y pueden adquirir directamente durante la transmisión.</p>
+            </article>
+            <article class="promise-card">
+              <h3>Logística con tarifas colectivas</h3>
+              <p>Negociamos tarifas especiales con paqueterías aprovechando el volumen grupal. Envíos a todo México y al extranjero sin que el flete destruya tu margen.</p>
+            </article>
+          </div>
+          <div class="promise-quote">
+            <blockquote>
+              "Los negocios inclusivos integran a personas en situación de vulnerabilidad dentro de su cadena de valor, no como beneficiarios, sino como productores y proveedores con poder real de negociación."
+            </blockquote>
+            <cite>Fundamento del modelo — ArteMercado</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── HOW IT WORKS ─── -->
+    <section id="como-funciona" class="how" aria-labelledby="how-title">
+      <div class="container">
+        <p class="section-label">Opciones de interacción</p>
+        <h2 id="how-title">¿Cómo funciona ArteMercado?</h2>
+        <p class="lead">Diseñado para artesanos que ya venden por WhatsApp y para los que nunca han vendido fuera de su municipio. El modelo funciona para ambos perfiles.</p>
+
+        <ol class="how-steps" role="list">
+          <li class="step">
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2zM4 20a8 8 0 0 1 16 0"/></svg>
+            </div>
+            <div class="step-num" aria-hidden="true">01</div>
+            <h3>Regístrate y crea tu tienda</h3>
+            <p>Te acompañamos paso a paso: fotografía de tus piezas, descripción de tu historia y proceso, fijación de precios justa. Sin cuotas de inscripción ni costos ocultos.</p>
+          </li>
+          <li class="step">
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 3h18v13H3zM8 21h8M12 16v5"/></svg>
+            </div>
+            <div class="step-num" aria-hidden="true">02</div>
+            <h3>Vende en ferias virtuales</h3>
+            <p>Participa en eventos en vivo mensuales donde compradores nacionales e internacionales conocen tu oficio, hacen preguntas en tiempo real y compran directamente.</p>
+          </li>
+          <li class="step">
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div class="step-num" aria-hidden="true">03</div>
+            <h3>Envía con tarifas justas</h3>
+            <p>Gestionamos el envío de tus piezas con tarifas colectivas negociadas. Tú empacas, nosotros coordinamos la recolección y el seguimiento al comprador.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ─── TARGET GROUP ─── -->
+    <section id="comunidad" class="target" aria-labelledby="target-title">
+      <div class="container">
+        <p class="section-label">Grupo objetivo</p>
+        <h2 id="target-title">¿Para quién es ArteMercado?</h2>
+
+        <div class="target-grid">
+          <div>
+            <article class="profile-card" style="border-top: 3px solid var(--terra); margin-bottom: 1.5rem;">
+              <div class="profile-header">
+                <div class="profile-avatar" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#C0502A" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></svg>
+                </div>
+                <div>
+                  <p class="profile-name">Artesanos con oficio heredado</p>
+                  <p class="profile-role">Productor · Proveedor</p>
+                </div>
+              </div>
+              <p>Familias que trabajan horas en una pieza de Talavera, un huipil bordado a mano o un jarrón de barro negro — y que hoy venden a quien llega a imponerles el precio.</p>
+            </article>
+            <article class="profile-card">
+              <div class="profile-header">
+                <div class="profile-avatar" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#4A7C59" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></svg>
+                </div>
+                <div>
+                  <p class="profile-name">Mujeres artesanas</p>
+                  <p class="profile-role">Productora principal</p>
+                </div>
+              </div>
+              <p>Las que pasan más horas frente al telar o al horno, pero rara vez son las que negocian o reciben el pago. Con ArteMercado, ellas controlan su tienda, sus precios y sus ingresos directamente.</p>
+            </article>
+          </div>
+
+          <div class="target-problem">
+            <h3>El problema que queremos romper</h3>
+            <p>En muchas comunidades artesanales de Puebla, el artesano no tiene otra opción más que vender a quien se le acerca. Quien se le acerca generalmente no tiene ningún interés en que el artesano prospere, sino en <em class="highlight-inline">comprar barato para revender caro</em>.</p>
+            <p>Eso genera un ciclo donde el trabajo más creativo, laborioso y rico culturalmente de toda la cadena es también <strong>el peor pagado</strong>.</p>
+            <p>Queremos romper ese ciclo desde adentro: dándole al artesano las herramientas para que él mismo negocie, fije el precio y decida a quién le vende.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── REVENUE ─── -->
+    <section aria-labelledby="revenue-title">
+      <div class="container">
+        <p class="section-label">Modelos de ingresos</p>
+        <h2 id="revenue-title">Ganamos cuando tú ganas</h2>
+        <p class="lead">Solo cobramos cuando hay una venta exitosa. No hay cuotas fijas ni costos de inscripción.</p>
+
+        <div class="revenue-cards" role="list">
+          <article class="rev-card" role="listitem">
+            <span class="rev-tag">Artesanos</span>
+            <p class="rev-num">8–10%</p>
+            <h3>Comisión sobre ventas</h3>
+            <p>Por cada transacción completada retenemos un porcentaje pequeño. Si no hay venta, no hay costo. Así nuestros incentivos quedan completamente alineados con los tuyos.</p>
+          </article>
+          <article class="rev-card" role="listitem">
+            <span class="rev-tag">Compradores premium</span>
+            <p class="rev-num">Membresía</p>
+            <h3>Plan premium para compradores de volumen</h3>
+            <p>Tiendas de diseño, hoteles boutique y agencias de regalos corporativos acceden a colecciones anticipadas, descuentos escalonados y asesoría personalizada de curación.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SCALABILITY ─── -->
+    <section id="escalabilidad" class="scale" aria-labelledby="scale-title">
+      <div class="container">
+        <p class="section-label">Escalabilidad</p>
+        <h2 id="scale-title">Empezamos en Puebla.<br>El horizonte es el mundo.</h2>
+        <p class="lead">Arrancar acotado no es una limitación: es una estrategia para aprender rápido, ajustar lo que no funciona y llegar a cada etapa con un modelo ya probado.</p>
+
+        <div class="scale-timeline" role="list" aria-label="Etapas de crecimiento">
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <p class="timeline-phase">Corto plazo</p>
+            <h3>Puebla — Comunidades artesanales locales</h3>
+            <p>Piloto con artesanos de Talavera, alfarería y textiles en zonas semiurbanas y rurales de Puebla. Construcción de confianza, ajuste de plataforma y primeras ventas directas.</p>
+          </div>
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <p class="timeline-phase">Mediano plazo</p>
+            <h3>Módulo de formación digital · Expansión a otros estados</h3>
+            <p>Los artesanos aprenden a fotografiar con su celular, redactar historias de producto y leer sus métricas de venta. La plataforma tecnológica está diseñada para incorporar nuevas comunidades a costo marginal.</p>
+          </div>
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <p class="timeline-phase">Largo plazo</p>
+            <h3>Exportación — Europa y mercado hispano en EE. UU.</h3>
+            <p>Alianzas con organizaciones de comercio justo certificadas internacionalmente para abrir canales hacia Alemania, Francia, Países Bajos y la comunidad hispanohablante en Estados Unidos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── POUR SECTION ─── -->
+    <section id="accesibilidad" class="pour" aria-labelledby="pour-title">
+      <div class="container">
+        <p class="section-label">Diseño inclusivo</p>
+        <h2 id="pour-title">Accesibilidad web: Metodología POUR</h2>
+        <p class="lead">Este sitio fue diseñado siguiendo los cuatro principios WCAG 2.1 para garantizar que cualquier persona pueda acceder a ArteMercado, independientemente de sus capacidades o tecnología.</p>
+
+        <div class="pour-grid" role="list" aria-label="Principios POUR de accesibilidad">
+          <article class="pour-card" role="listitem">
+            <span class="pour-letter" aria-hidden="true">P</span>
+            <h3>Perceptible</h3>
+            <ul aria-label="Características de perceptibilidad">
+              <li>Texto alternativo en todas las imágenes</li>
+              <li>Ratio de contraste ≥ 4.5:1 en texto</li>
+              <li>Subtítulos en videos futuros</li>
+              <li>No depende solo del color para comunicar</li>
+            </ul>
+          </article>
+          <article class="pour-card" role="listitem">
+            <span class="pour-letter" aria-hidden="true">O</span>
+            <h3>Operable</h3>
+            <ul aria-label="Características de operabilidad">
+              <li>Navegación completa por teclado</li>
+              <li>Enlace "Saltar al contenido" visible al foco</li>
+              <li>Sin animaciones que puedan causar convulsiones</li>
+              <li>Foco visible en todos los elementos</li>
+            </ul>
+          </article>
+          <article class="pour-card" role="listitem">
+            <span class="pour-letter" aria-hidden="true">U</span>
+            <h3>Comprensible</h3>
+            <ul aria-label="Características de comprensibilidad">
+              <li>Idioma declarado en etiqueta HTML</li>
+              <li>Etiquetas y mensajes de error en formularios</li>
+              <li>Navegación consistente en todas las páginas</li>
+              <li>Texto legible, sin tecnicismos innecesarios</li>
+            </ul>
+          </article>
+          <article class="pour-card" role="listitem">
+            <span class="pour-letter" aria-hidden="true">R</span>
+            <h3>Robusto</h3>
+            <ul aria-label="Características de robustez">
+              <li>HTML semántico (nav, main, section, article)</li>
+              <li>Roles y etiquetas ARIA apropiadas</li>
+              <li>Compatible con lectores de pantalla</li>
+              <li>Diseño responsive para cualquier dispositivo</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CTA ─── -->
+    <section class="cta" aria-labelledby="cta-title">
+      <div class="container cta-inner">
+        <h2 id="cta-title">¿Tienes un oficio que el mundo debería conocer?</h2>
+        <p>Únete a ArteMercado. No hay cuotas de inscripción, no hay intermediarios y no hay condiciones injustas. Solo tu trabajo y el mercado que merece.</p>
+        <div class="cta-actions">
+          <a href="#contacto" class="btn-white">Quiero ser artesano(a)</a>
+          <a href="#contacto" class="btn-outline-white">Soy comprador premium</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CONTACT ─── -->
+    <section id="contacto" class="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <p class="section-label">Contacto</p>
+        <h2 id="contact-title">Empieza hoy</h2>
+
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>¿Tienes preguntas?</h3>
+            <p>Escríbenos o llena el formulario. Nuestro equipo en Puebla te responderá en menos de 24 horas en español o náhuatl.</p>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Puebla de Zaragoza, Puebla, México</span>
+            </div>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:hola@artemercado.mx">hola@artemercado.mx</a>
+            </div>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Soporte por WhatsApp disponible</span>
+            </div>
+          </div>
+
+          <!-- POUR: Comprensible — Form accesible con labels explícitas -->
+          <form action="#" method="post" aria-label="Formulario de contacto" novalidate>
+            <div class="form-group">
+              <label for="nombre">Nombre completo <span class="required" aria-label="requerido">*</span></label>
+              <input type="text" id="nombre" name="nombre" autocomplete="name" required aria-required="true" placeholder="Tu nombre" />
+            </div>
+            <div class="form-group">
+              <label for="email">Correo electrónico <span class="required" aria-label="requerido">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" required aria-required="true" placeholder="tucorreo@ejemplo.com" />
+            </div>
+            <div class="form-group">
+              <label for="rol">¿Cómo quieres participar? <span class="required" aria-label="requerido">*</span></label>
+              <select id="rol" name="rol" required aria-required="true">
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="artesano">Soy artesano(a) y quiero vender</option>
+                <option value="comprador">Soy comprador interesado</option>
+                <option value="premium">Quiero la membresía premium</option>
+                <option value="aliado">Quiero ser aliado estratégico</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="oficio">¿Cuál es tu oficio o producto? <span class="form-hint">(opcional)</span></label>
+              <input type="text" id="oficio" name="oficio" placeholder="Ej. Talavera, textiles bordados, barro negro…" />
+            </div>
+            <div class="form-group">
+              <label for="mensaje">Mensaje <span class="required" aria-label="requerido">*</span></label>
+              <textarea id="mensaje" name="mensaje" required aria-required="true" placeholder="Cuéntanos un poco sobre ti o tu comunidad…"></textarea>
+              <span class="form-hint" id="mensaje-hint">Máximo 500 caracteres. Puedes escribir en español o náhuatl.</span>
+            </div>
+            <button type="submit" class="btn-submit">Enviar mensaje</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── FOOTER ─── -->
+  <footer role="contentinfo" aria-label="Pie de página">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="logo">Arte<span>Mercado</span></p>
+          <p>Plataforma digital inclusiva que conecta artesanos de comunidades vulnerables de Puebla con mercados nacionales e internacionales. <br><br>Diseñar para compartir.</p>
+        </div>
+        <nav aria-label="Navegación de pie de página — Secciones">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="#modelo">Modelo inclusivo</a></li>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#comunidad">Comunidad</a></li>
+            <li><a href="#escalabilidad">Escalabilidad</a></li>
+            <li><a href="#accesibilidad">Accesibilidad POUR</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Navegación de pie de página — Legal">
+          <h4>Legal y acceso</h4>
+          <ul>
+            <li><a href="#">Aviso de privacidad</a></li>
+            <li><a href="#">Términos de uso</a></li>
+            <li><a href="#">Declaración de accesibilidad</a></li>
+            <li><a href="#">Mapa del sitio</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ArteMercado — Montes Pedroza José Emiliano · UVM Campus Puebla</span>
+        <span>Sitio diseñado bajo metodología <abbr title="Perceptible, Operable, Comprensible, Robusto">POUR</abbr> · WCAG 2.1 AA</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // POUR: Operable — Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const menu   = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+
+    // Close nav on link click (mobile)
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+      });
+    });
+
+    // POUR: Comprensible — Form validation with accessible error messages
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const required = form.querySelectorAll('[required]');
+      let valid = true;
+
+      // Clear previous errors
+      form.querySelectorAll('[role="alert"]').forEach(el => el.remove());
+      form.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+
+      required.forEach(field => {
+        if (!field.value.trim()) {
+          valid = false;
+          field.classList.add('input-error');
+          const err = document.createElement('span');
+          err.role = 'alert';
+          err.style.cssText = 'color:#C0502A;font-size:0.78rem;display:block;margin-top:0.25rem;';
+          err.textContent = 'Este campo es obligatorio.';
+          field.parentNode.appendChild(err);
+          if (valid === false) field.focus();
+        }
+      });
+
+      if (valid) {
+        const btn = form.querySelector('button[type="submit"]');
+        btn.textContent = '✓ ¡Mensaje enviado! Te contactamos pronto.';
+        btn.style.background = '#4A7C59';
+        btn.disabled = true;
+        btn.setAttribute('aria-live', 'polite');
+      }
+    });
+  </script>
+
+  <style>
+    /* Error input state */
+    .input-error { border-color: #C0502A !important; }
+    .input-error:focus { outline-color: #C0502A !important; }
+  </style>
+</body>
+</html>
